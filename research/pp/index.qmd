@@ -1,9 +1,5 @@
 ---
 title: "Pollen prediction"
-author: 
-  - __Yi Liu__
-  - Zhu's group
-date: "2025-07-12"
 description: " "
 categories:
   - Leading project

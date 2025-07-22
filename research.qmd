@@ -4,6 +4,5 @@ format: html
 listing:
   type: default
   contents: research
-  sort: "date desc"
-  categories: true
+  categories: False
 ---

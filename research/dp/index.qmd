@@ -1,11 +1,6 @@
 ---
 title: "Distribution and phenology change"
-subtitle: "Demo of the latitude-month diagram idea"
-author: 
-  - __Yi Liu__
-  - Macrophenology ESIIL Working Group
-date: "2025-03-31"
-description: "Manuscript in preparation"
+description: " "
 categories:
   - Changing phenology
   - Working

@@ -1,9 +1,5 @@
 ---
 title: "Wind speed change and sandstorm"
-author: 
-  - __Yi Liu__
-  - Zeng's group
-date: "2024-01-30"
 description: " "
 categories:
   - Changing wind

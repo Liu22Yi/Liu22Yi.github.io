@@ -1,9 +1,5 @@
 ---
 title: "Wind speed change and wind power"
-author: 
-  - __Yi Liu__
-  - Zeng's group
-date: "2022-11-04"
 description: " "
 categories:
   - Changing wind

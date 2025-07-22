@@ -8,8 +8,6 @@ format:
     toc: true
 ---
 
-Knowing the people who did the research is as important as knowing the research itself. 
-
 ### Natural observation
 
 I use [Pl@ntNet](https://plantnet.org/en/) for identifying plants. I like their feature of classsifying plant component because plants may look very different during flowering and fruit stages. I'm a top 1% observer (account: [yia](https://identify.plantnet.org/users/106222146/observations)).
@@ -21,22 +19,40 @@ I use [Merlin Bird ID](https://merlin.allaboutbirds.org/) sometime for identifyi
 
 I also like an app called [Shroomify](https://www.foragers-friend.com/) for identifying mushrooms.
 
-### Science communication
+### Natural education and Science communication
 
-I was
+I participated in Greencamp (绿色营) at the Tianbao Rock National Nature Reserve (福建天宝岩国家级自然保护区) in China, where we explored effective ways to connect people with nature, shared ecological knowledge with the public, and promoted awareness of the value of natural ecosystems.
 
-I follow a broad range of science communication accounts and
+![Greencamp in Tianbao Yanziran Protection Zon](outreach/greencamp.jpeg){height=300px}
+
+I am a Portal to the Public Science Communication Fellow at the University of Michigan Museum of Natural History, where I have learned how to effectively communicate my research to the public.
+
+![Scientist spotlight at the University of Michigan Museum of Natural History](outreach/comm.jpg){height=300px}
 
 
 ### Sports
+:::{.columns}
+::: {.column width="50%"}
+
 I enjoy almost every type of sport. One of my proudest achievements is teaching myself how to swim at the age of 15. This experience not only helped me learn to swim, but also taught me the value of self-directed learning—especially using online resources when time or money is limited. Since then, I’ve gained many new skills through self-learning.
 
-My greatest dedication in sports is to martial arts. I practiced taekwondo for ten years and earned a second-dan black belt. Currently, I am learning judo. Martial arts have given me both physical strength and resilience. 
+My greatest dedication in sports is to martial arts. I practiced taekwondo for ten years and earned a second-dan black belt. Currently, I am learning judo. Martial arts have given me both physical strength and resilience.
 
+Sports are not just a form of physical exercise—they also engage the mind. In Judo, we study mechanics, while workouts help us understand human anatomy.
 
+:::
+
+::: {.column width="3%"}
+&nbsp;  <!-- This holds the space -->
+:::
+
+::: {.column width="45%"}
+![Competing in the Michigan Judo State Games](outreach/judo.jpeg){height=500px}
+:::
+:::
 
 ### Music
-I am learning singing, even though I wasn't a little late to start, now it become my daily life and a great way to relax. 
+I am learning singing. Practicing singing becomes my daily life and a great way to relax. It has been a wonderful experience to study acoustics and how to control the beautiful "instrument" that you are born with.
 
 
 
