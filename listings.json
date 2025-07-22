@@ -2,12 +2,12 @@
   {
     "listing": "/research.html",
     "items": [
+      "/research/dp/index.html",
       "/research/fp/index.html",
       "/research/pp/index.html",
-      "/research/dp/index.html",
+      "/research/side/index.html",
       "/research/wr/index.html",
       "/research/ws/index.html",
-      "/research/side/index.html",
       "/research/wp/index.html"
     ]
   }
