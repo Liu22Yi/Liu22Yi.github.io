@@ -79,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -175,6 +175,10 @@ window.Quarto = {
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./outreach.html"> 
 <span class="menu-text">Beyond research</span></a>
   </li>  
@@ -189,9 +193,9 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Bayesian model">Bayesian model <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Breaking points analysis">Breaking points analysis <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Circular statistics">Circular statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ecosystem change">Ecosystem change <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Field phenology observation">Field phenology observation <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Herbarium data">Herbarium data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ideas">Ideas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Machine learning">Machine learning <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Meteorology data">Meteorology data <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Past project">Past project <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Phylogenetic data">Phylogenetic data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Satellite data">Satellite data <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Wind speed change">Wind speed change <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Working project">Working project <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -220,7 +224,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Changing phenology,Working" data-listing-file-modified-sort="1753164160484" data-listing-reading-time-sort="13" data-listing-word-count-sort="2406">
+<div class="quarto-post image-right" data-index="0" data-categories="Ecosystem change,Ideas" data-listing-file-modified-sort="1754876060947" data-listing-reading-time-sort="13" data-listing-word-count-sort="2406">
 <div class="thumbnail">
 <p><a href="./research/dp/index.html" class="no-external"></a></p><a href="./research/dp/index.html" class="no-external">
 <p class="card-img-top"><img src="research/dp/index_files/figure-html/unnamed-chunk-6-1.png"  class="thumbnail-image card-img"/></p>
@@ -233,6 +237,14 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/dp/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ecosystem change'); return false;">
+Ecosystem change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ideas'); return false;">
+Ideas
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/dp/index.html" class="no-external"> </a>
 </div>
@@ -242,7 +254,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="Leading project,Changing phenology,Working" data-listing-file-modified-sort="1753163634368" data-listing-reading-time-sort="1" data-listing-word-count-sort="141">
+<div class="quarto-post image-right" data-index="1" data-categories="Ecosystem change,Machine learning,Bayesian model,Circular statistics,Meteorology data,Herbarium data,Field phenology observation,Phylogenetic data,Working project" data-listing-file-modified-sort="1754877127742" data-listing-reading-time-sort="1" data-listing-word-count-sort="141">
 <div class="thumbnail">
 <p><a href="./research/fp/index.html" class="no-external"></a></p><a href="./research/fp/index.html" class="no-external">
 <p class="card-img-top"><img src="research/fp/1.png"  class="thumbnail-image card-img"/></p>
@@ -255,6 +267,35 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/fp/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ecosystem change'); return false;">
+Ecosystem change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Machine learning'); return false;">
+Machine learning
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Bayesian model'); return false;">
+Bayesian model
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Circular statistics'); return false;">
+Circular statistics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Meteorology data'); return false;">
+Meteorology data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Herbarium data'); return false;">
+Herbarium data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Field phenology observation'); return false;">
+Field phenology observation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Phylogenetic data'); return false;">
+Phylogenetic data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Working project'); return false;">
+Working project
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/fp/index.html" class="no-external"> </a>
 </div>
@@ -264,7 +305,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="Leading project,Pollen,Machine learning,Working" data-listing-file-modified-sort="1753163644800" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
+<div class="quarto-post image-right" data-index="2" data-categories="Ecosystem change,Meteorology data,Machine learning,Field phenology observation,Satellite data,Working project" data-listing-file-modified-sort="1754877132761" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
 <div class="thumbnail">
 <p><a href="./research/pp/index.html" class="no-external"></a></p><a href="./research/pp/index.html" class="no-external">
 <p class="card-img-top"><img src="research/pp/1.png"  class="thumbnail-image card-img"/></p>
@@ -277,6 +318,26 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/pp/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ecosystem change'); return false;">
+Ecosystem change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Meteorology data'); return false;">
+Meteorology data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Machine learning'); return false;">
+Machine learning
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Field phenology observation'); return false;">
+Field phenology observation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Satellite data'); return false;">
+Satellite data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Working project'); return false;">
+Working project
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/pp/index.html" class="no-external"> </a>
 </div>
@@ -286,7 +347,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="Fish,Past projects" data-listing-file-modified-sort="1753163661667" data-listing-reading-time-sort="1" data-listing-word-count-sort="93">
+<div class="quarto-post image-right" data-index="3" data-categories="Ecosystem change,Breaking points analysis,Field phenology observation,Past project" data-listing-file-modified-sort="1754876588442" data-listing-reading-time-sort="1" data-listing-word-count-sort="93">
 <div class="thumbnail">
 <p><a href="./research/side/index.html" class="no-external"></a></p><a href="./research/side/index.html" class="no-external">
 <p class="card-img-top"><img src="research/side/1.png"  class="thumbnail-image card-img"/></p>
@@ -299,6 +360,20 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/side/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ecosystem change'); return false;">
+Ecosystem change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Breaking points analysis'); return false;">
+Breaking points analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Field phenology observation'); return false;">
+Field phenology observation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Past project'); return false;">
+Past project
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/side/index.html" class="no-external"> </a>
 </div>
@@ -308,7 +383,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Changing wind,Past projects" data-listing-file-modified-sort="1753163681279" data-listing-reading-time-sort="2" data-listing-word-count-sort="268">
+<div class="quarto-post image-right" data-index="4" data-categories="Wind speed change,Breaking points analysis,Meteorology data,Satellite data,Past project" data-listing-file-modified-sort="1754877042527" data-listing-reading-time-sort="2" data-listing-word-count-sort="268">
 <div class="thumbnail">
 <p><a href="./research/wr/index.html" class="no-external"></a></p><a href="./research/wr/index.html" class="no-external">
 <p class="card-img-top"><img src="research/wr/1.png"  class="thumbnail-image card-img"/></p>
@@ -321,6 +396,23 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/wr/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Wind speed change'); return false;">
+Wind speed change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Breaking points analysis'); return false;">
+Breaking points analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Meteorology data'); return false;">
+Meteorology data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Satellite data'); return false;">
+Satellite data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Past project'); return false;">
+Past project
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/wr/index.html" class="no-external"> </a>
 </div>
@@ -330,7 +422,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="Changing wind,Past projects" data-listing-file-modified-sort="1753163928288" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
+<div class="quarto-post image-right" data-index="5" data-categories="Wind speed change,Breaking points analysis,Meteorology data,Past project" data-listing-file-modified-sort="1754877055988" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
 <div class="thumbnail">
 <p><a href="./research/ws/index.html" class="no-external"></a></p><a href="./research/ws/index.html" class="no-external">
 <p class="card-img-top"><img src="research/ws/1.png"  class="thumbnail-image card-img"/></p>
@@ -343,6 +435,20 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./research/ws/index.html" class="no-external"></a>
 </div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Wind speed change'); return false;">
+Wind speed change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Breaking points analysis'); return false;">
+Breaking points analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Meteorology data'); return false;">
+Meteorology data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Past project'); return false;">
+Past project
+</div>
+</div>
 <div class="listing-description">
 <a href="./research/ws/index.html" class="no-external"> </a>
 </div>
@@ -352,7 +458,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Changing wind,Past projects" data-listing-file-modified-sort="1753163670651" data-listing-reading-time-sort="2" data-listing-word-count-sort="235">
+<div class="quarto-post image-right" data-index="6" data-categories="Wind speed change,Breaking points analysis,Meteorology data,Past project" data-listing-file-modified-sort="1754877089909" data-listing-reading-time-sort="2" data-listing-word-count-sort="235">
 <div class="thumbnail">
 <p><a href="./research/wp/index.html" class="no-external"></a></p><a href="./research/wp/index.html" class="no-external">
 <p class="card-img-top"><img src="research/wp/1.jpg"  class="thumbnail-image card-img"/></p>
@@ -364,6 +470,20 @@ window.Quarto = {
 </h3>
 <div class="listing-subtitle">
 <a href="./research/wp/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Wind speed change'); return false;">
+Wind speed change
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Breaking points analysis'); return false;">
+Breaking points analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Meteorology data'); return false;">
+Meteorology data
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Past project'); return false;">
+Past project
+</div>
 </div>
 <div class="listing-description">
 <a href="./research/wp/index.html" class="no-external"> </a>

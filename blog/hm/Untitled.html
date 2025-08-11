@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Yi Liu">
+<meta name="dcterms.date" content="2024-04-15">
 
-<title>Side projects – Yi Liu</title>
+<title>Handeling hierarchical data – Yi Liu</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,11 +86,40 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -132,48 +163,54 @@ document.addEventListener('DOMContentLoaded', function () {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-  <ul>
-  <li><a href="#thermal-cue-for-shark-emigration" id="toc-thermal-cue-for-shark-emigration" class="nav-link active" data-scroll-target="#thermal-cue-for-shark-emigration">Thermal cue for shark emigration</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <div class="quarto-about-solana column-body">
   <div class="about-entity">
     <div class="entity-contents">
       <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Side projects</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Ecosystem change</div>
-    <div class="quarto-category">Breaking points analysis</div>
-    <div class="quarto-category">Field phenology observation</div>
-    <div class="quarto-category">Past project</div>
-  </div>
-  </div>
+<h1 class="title">Handeling hierarchical data</h1>
+</div>
 <div class="quarto-title-meta">
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yi Liu </p>
+          </div>
+  </div>
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 15, 2024</p>
+    </div>
+  </div>
   </div>
 </header> 
       <div class="about-contents"><main class="content" id="quarto-document-content">
+<p>Prior:</p>
+<p><span class="math display">\[\begin{align}
+\begin{pmatrix}
+b_{i,0} \\
+b_{i,1}
+\end{pmatrix}
+&amp;\sim
+\mathcal{N}\left(
+\begin{pmatrix}
+0 \\
+0
+\end{pmatrix},
+\Sigma
+\right) \\
+\Sigma &amp;\sim
+\mathcal{W}^{-1}\left(
+\operatorname{diag}(50, 50),
+2
+\right) \\
+\epsilon_{ij} &amp;\sim \mathcal{N}(0, \sigma^2)
+\end{align}\]</span></p>
 
-<section id="thermal-cue-for-shark-emigration" class="level3">
-<h3 data-anchor-id="thermal-cue-for-shark-emigration">Thermal cue for shark emigration</h3>
-<p>Work done in Bayesian Ecological &amp; Environmental Statistics (B.E.E.S.) lab at University of Toronto.</p>
-<p>We analyzed acoustic telemetry tracking and high-resolution water temperature data to identify and quantify a thermal threshold for mass emigration of juvenile white sharks</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="1.png" height="300" class="figure-img"></p>
-<figcaption>Change point analysis of daily averaged sea floor temperature data and proportion of sharks present at Padaro from 15 May to 10 December</figcaption>
-</figure>
-</div>
-<p>Read more in this study:<br>
-Spurgeon, E., Anderson, J. M., <strong>Liu, Y.</strong>, Barajas, V. L. &amp; Lowe, C. G. Quantifying thermal cues that initiate mass emigrations in juvenile white sharks. <em>Scientific Reports</em> <strong>12</strong>. <a href="https://doi.org/10.1038/s41598-022-24377-1">https://doi.org/10.1038/s41598-022-24377-1</a> (2022).</p>
 
-
-</section>
 </main></div>
     </div>
   </div>
@@ -264,7 +301,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Liu22Yi\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

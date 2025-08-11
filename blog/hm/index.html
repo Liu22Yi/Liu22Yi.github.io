@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Yi Liu">
+<meta name="dcterms.date" content="2024-10-20">
+<meta name="description" content="Standard mixed-effect model and phylogenetic mixed-effect model">
 
-<title>Side projects – Yi Liu</title>
+<title>Handeling hierarchical data – Yi Liu</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,7 +139,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
   <ul>
-  <li><a href="#thermal-cue-for-shark-emigration" id="toc-thermal-cue-for-shark-emigration" class="nav-link active" data-scroll-target="#thermal-cue-for-shark-emigration">Thermal cue for shark emigration</a></li>
+  <li><a href="#unpooled" id="toc-unpooled" class="nav-link active" data-scroll-target="#unpooled">Unpooled</a></li>
+  <li><a href="#smm" id="toc-smm" class="nav-link" data-scroll-target="#smm">SMM</a></li>
+  <li><a href="#pmm" id="toc-pmm" class="nav-link" data-scroll-target="#pmm">PMM</a></li>
   </ul>
 </nav>
     </div>
@@ -146,31 +151,77 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="entity-contents">
       <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Side projects</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Ecosystem change</div>
-    <div class="quarto-category">Breaking points analysis</div>
-    <div class="quarto-category">Field phenology observation</div>
-    <div class="quarto-category">Past project</div>
+<h1 class="title">Handeling hierarchical data</h1>
+</div>
+<div>
+  <div class="description">
+    Standard mixed-effect model and phylogenetic mixed-effect model
   </div>
-  </div>
+</div>
 <div class="quarto-title-meta">
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yi Liu </p>
+          </div>
+  </div>
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 20, 2024</p>
+    </div>
+  </div>
   </div>
 </header> 
       <div class="about-contents"><main class="content" id="quarto-document-content">
 
-<section id="thermal-cue-for-shark-emigration" class="level3">
-<h3 data-anchor-id="thermal-cue-for-shark-emigration">Thermal cue for shark emigration</h3>
-<p>Work done in Bayesian Ecological &amp; Environmental Statistics (B.E.E.S.) lab at University of Toronto.</p>
-<p>We analyzed acoustic telemetry tracking and high-resolution water temperature data to identify and quantify a thermal threshold for mass emigration of juvenile white sharks</p>
+<p>I am analyzing leafing time data with a hierarchical structure, where each observation is associated with a specific year and individual.</p>
+<p>The simplest approach is to ignore this structure and fit a standard regression to all data, a completely pooled model.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="1.png" height="300" class="figure-img"></p>
-<figcaption>Change point analysis of daily averaged sea floor temperature data and proportion of sharks present at Padaro from 15 May to 10 December</figcaption>
+<p><img src="pool.png" height="300" class="figure-img"></p>
+<figcaption>Completely pooled</figcaption>
 </figure>
 </div>
-<p>Read more in this study:<br>
-Spurgeon, E., Anderson, J. M., <strong>Liu, Y.</strong>, Barajas, V. L. &amp; Lowe, C. G. Quantifying thermal cues that initiate mass emigrations in juvenile white sharks. <em>Scientific Reports</em> <strong>12</strong>. <a href="https://doi.org/10.1038/s41598-022-24377-1">https://doi.org/10.1038/s41598-022-24377-1</a> (2022).</p>
+<p>Alternatively, we can fit a separate model for each individual, known as a completely unpooled model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unpool.png" height="300" class="figure-img"></p>
+<figcaption>Completely unpooled</figcaption>
+</figure>
+</div>
+<p>A third common approach is to recenter the group-level data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="recenter.png" height="300" class="figure-img"></p>
+<figcaption>Recentered model</figcaption>
+</figure>
+</div>
+<p>But a better strategy is the partially pooled model (such as a mixed-effects model), which allows for group-specific effects while also sharing information across groups through shared hyperparameters.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mm.png" height="300" class="figure-img"></p>
+<figcaption>Partially pooled</figcaption>
+</figure>
+</div>
+<p>Here, we are going to talk a little bit about the connection between a completely unpooled model and two versions of partially pooled models.</p>
+<section id="unpooled" class="level1">
+<h1>Unpooled</h1>
+<p>In short, the difference lies in how we define the relationship among the group-level parameters. If they are completely independent, the model is completely unpooled; if they are exactly identical, the model is completely pooled.</p>
+<p><img src="unpooleq.png" height="300"></p>
+</section>
+<section id="smm" class="level1">
+<h1>SMM</h1>
+<p>A standard mixed-effects model constrains the group-level parameters with a normal distribution.</p>
+<p><img src="SMM1.png" height="250"></p>
+<p>This can also be written as a multivariate normal distribution, which allows for more fine-tuning.</p>
+<p><img src="SMM2.png" height="300"></p>
+</section>
+<section id="pmm" class="level1">
+<h1>PMM</h1>
+<p>One such fine-tuning is to incorporate phylogenetic data, assuming that species closer in evolutionary history should be more highly correlated in this trait.</p>
+<p><img src="PMM.png" height="300"></p>
+<p>𝜌 is the shared life history. Pagel’s 𝜆 is the phylogenetic signal.</p>
 
 
 </section>
