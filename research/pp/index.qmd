@@ -2,10 +2,12 @@
 title: "Pollen prediction"
 description: " "
 categories:
-  - Leading project
-  - Pollen
+  - Ecosystem change
+  - Meteorology data
   - Machine learning
-  - Working
+  - Field phenology observation
+  - Satellite data
+  - Working project
 about:
   template: solana
 format:
@@ -33,7 +35,7 @@ Pollen production has significant inter-annual variation. We are trying to ident
 ---
 
 ### Using satellite observations to advance airborne pollen mapping
-We developed a machine learning framework based on satellite and ground lidar observation to map pollen concentrations at the continental scale.
+Yingxiao developed a machine learning framework based on satellite and ground lidar observation to map pollen concentrations at the continental scale.
 
 ![Vertical profile of pollen plume observed with MPLNET and CALIPSO on May 19, 2021, when the total pollen concentration in Silver Spring, MD was 1157 grains m-3.](3.png){height=800px}
 

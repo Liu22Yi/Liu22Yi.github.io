@@ -2,8 +2,8 @@
 title: "Distribution and phenology change"
 description: " "
 categories:
-  - Changing phenology
-  - Working
+  - Ecosystem change
+  - Ideas
 about:
   template: solana
 format:

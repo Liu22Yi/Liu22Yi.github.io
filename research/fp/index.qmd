@@ -2,9 +2,15 @@
 title: "Flowering phenology"
 description: " "
 categories:
-  - Leading project
-  - Changing phenology
-  - Working
+  - Ecosystem change
+  - Machine learning
+  - Bayesian model
+  - Circular statistics
+  - Meteorology data
+  - Herbarium data
+  - Field phenology observation
+  - Phylogenetic data
+  - Working project
 about:
   template: solana
 format:
@@ -20,7 +26,9 @@ We investigated the relationship between temperature changes and flowering time 
 ![Herbarium image and the infered sensitivity with phylogenetic information.](1.png){height=400px}
 
 Read more in this study:  
-**Liu, Y.**, Song, Y. and Zhu, K. Plasticity instead of adaptation dominated wind-pollinated trees’ flowering time sensitivity to temperature. in preparation.
+**Liu, Y.**, Song, Y. & Zhu, K. Plasticity, not adaptation, dominates wind-pollinated trees’ flower-ing time sensitivity to temperature ESA 2025 Annual Meeting (Baltimore, USA). Aug. 2025. [Poster](https://docs.google.com/presentation/d/1ZJaYfvUaetbkaCByU0H8qty4SDKKhPoxW79IAtdblZ8/edit?slide=id.g2c3a2c83dcf_0_0#slide=id.g2c3a2c83dcf_0_0)
+
+**Liu, Y.**, Song, Y., Weaver, W., Shedden, K., Chen, Y., Smith, S. A. & Zhu, K. Dominance of plasticity in wind-pollinated trees’ flowering time response to temperature. bioRxiv preprint. [https://doi.org/10.1101/2025.08.26.672405](https://doi.org/10.1101/2025.08.26.672405) (2025).
 
 ---
 

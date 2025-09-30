@@ -2,8 +2,11 @@
 title: "Wind speed change"
 description: " "
 categories:
-  - Changing wind
-  - Past projects
+  - Wind speed change
+  - Breaking points analysis
+  - Meteorology data
+  - Satellite data
+  - Past project
 about:
   template: solana
 format:

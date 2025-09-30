@@ -1,0 +1,327 @@
+---
+title: "Fitting mixed-effect model using frequency method vs Bayesian method"
+author: "Yi Liu"
+date: "2024-04-15"
+about:
+  template: solana
+format:
+  html:
+    code-fold: true
+    code-overflow: wrap
+    toc: true
+    math: mathjax
+---
+
+I compared frequency and Bayesian methods in mixed effects models. 
+
+The frequency approach typically relies on maximum likelihood estimation (MLE), which yields a single point estimate. MLE directly optimizes by calculating gradients, making it computationally efficient, especially in low-dimensional settings with simple model structures. This estimate is equivalent to the mode of the Bayesian posterior distribution under a flat prior. 
+
+Bayesian methods, on the other hand, treat all parameters as random variables and infer their full posterior distributions by incorporating prior information and using sampling techniques. This approach is more flexible and better suited for complex models but is computationally demanding since it explores the entire parameter space.
+
+There is a spectrum between purely analytic and purely sampling-based approaches. For example, some sampling methods, such as NUTS, incorporate gradient calculations to guide the sampling process. We can also add prior to the MLE method (as shown later). In this sense, pure Bayesian sampling and frequentist analytic methods occupy opposite ends of the spectrum, with newer hybrid approaches emerging in between to combine the strengths of both.
+
+# Sugar maple flowering time data as a  case study
+I needed to fit a mixed effects model to estimate the slope of temperature sensitivity. The dataset is hierarchical: flowering times are recorded in multiple years for different individuals, making it a classic case for mixed effects modeling. [Download the data here](sugar_maple.rds)
+
+```{r loadpackage, message=FALSE, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(rstan) 
+library(blme)
+library(lme4)
+
+theme_set(theme_classic())
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+```
+
+```{r read data}
+data <- readRDS("sugar_maple.rds")
+
+ggplot(data = data, aes(x = springT, y = leaf)) +
+    geom_smooth(method = "lm", formula = y ~ x, se = TRUE, color = "black") +
+    geom_point(aes(color = as.factor(individual_id))) +
+    geom_smooth(method = "lm", formula = y ~ x, se = FALSE, aes(color = as.factor(individual_id), fill = as.factor(individual_id))) +
+    labs(title = "Sugar maple",
+       x = "Spring temperature", y = "Leaf day") +
+    theme(legend.position = "none") 
+```
+Figure: Each color represents a different individual sugar maple tree. Solid lines show individual regression fits. The bold black line is the population-level fit.
+
+# Regular MLE failed
+Since this is a very standard mixed effects model, I first tried fitting it using the widely used `lmer` function from the lme4 package. However, the model failed to converge. Additionally, the results showed very small variation among groups, indicating that `lmer` essentially produced an almost completely pooled estimate that did not adequately account for the group-level differences.
+
+```{r lmer}
+temporal_model <- lmer(leaf ~ springT + (1+springT | individual_id), data = data)
+slope_tem_rmle <- fixef(temporal_model)['springT']
+
+temporal_model
+```
+
+# Add prior
+
+To address this issue, we can impose a prior to establish a minimum bound on the variation among groups. This can be done in two ways: either by using a Restricted Maximum Likelihood Estimation (REML) approach that allows such constraints, or by fitting a Bayesian model that explicitly incorporates prior restrictions.
+
+## RMLE
+
+As for REML, I use the `blmer` function from the **blme** package in R. I am using **blme** because it provides the option to integrate priors into the likelihood function, which can help mitigate the shrinkage issue caused by very small variance estimates during likelihood optimization.
+
+For the 95% confidence interval, we used 100 bootstrap replications at the individual (tree) level (i.e., randomly selecting individuals), since most trees have only 3 or 4 observations, making within-individual bootstrapping impractical.
+
+The model is specified as follows:
+
+$$
+y_{ij} = \beta_0 + \beta_1 x_{ij} + b_{i,0} + b_{i,1} x_{ij} + \epsilon_{ij}
+$$
+
+Prior:
+
+\begin{align}
+\begin{pmatrix}
+b_{i,0} \\
+b_{i,1}
+\end{pmatrix}
+&\sim
+\mathcal{N}\left(
+\begin{pmatrix}
+0 \\
+0
+\end{pmatrix},
+\Sigma
+\right) \\
+
+\Sigma &\sim
+\mathcal{W}^{-1}\left(
+\operatorname{diag}(50, 50),
+2
+\right) \\
+
+\epsilon_{ij} &\sim \mathcal{N}(0, \sigma^2)
+\end{align}
+
+
+
+
+```{r RLME_mix_fit}
+temporal_model <- blmer(leaf ~ springT + (1+springT | individual_id), data = data,
+                        cov.prior = invwishart(df = 36, scale = diag(c(50, 50), 2)))
+slope_tem_rmle <- fixef(temporal_model)['springT']
+```
+
+```{r RLME_mix_boot}
+bootstrap_estimate <- function(data, n_bootstrap) {
+  bootstrap_estimates <- numeric(n_bootstrap)  
+  successful_bootstraps <- 0
+  
+  units <- unique(data$individual_id) 
+  
+  while (successful_bootstraps < n_bootstrap) {
+    sampled_units <- sample(units, size = length(units), replace = TRUE)
+    
+    bootstrap_data <- data[data$individual_id %in% sampled_units, ]
+    
+    fit_attempt <- tryCatch({
+      model <- blmer(leaf ~ springT + (1 + springT | individual_id), data = bootstrap_data,
+                     cov.prior = invwishart(df = 36, scale = diag(c(50, 50), 2)))  
+      
+      fixef(model)["springT"]  
+    }, warning = function(w) {
+      return(NA)  
+    })
+    
+    if (!is.na(fit_attempt)) {
+      bootstrap_estimates[successful_bootstraps + 1] <- fit_attempt  
+      successful_bootstraps <- successful_bootstraps + 1 
+    }
+  }
+  
+  return(bootstrap_estimates)  
+}
+
+n_bootstrap <- 100
+
+boot_estimates <- bootstrap_estimate(data, n_bootstrap)
+
+CI_lower <- quantile(boot_estimates, probs = 0.025, na.rm = TRUE)  
+CI_upper <- quantile(boot_estimates, probs = 0.975, na.rm = TRUE)  
+```
+
+```{r RLME_mix_plot}
+mix1 <- data %>% 
+  mutate(fit.m = predict(temporal_model, re.form = NA),
+         fit.c = predict(temporal_model, re.form = NULL))
+
+label <- paste("Slope: ", round(slope_tem_rmle, 2), "\n95% CI: [", round(CI_lower, 2), ", ", round(CI_upper, 2), "]", sep = "")
+
+mix1 %>%
+  ggplot(aes(x = springT, y = leaf, color = as.factor(individual_id))) +
+  geom_point(shape = 16) +  # Plot data points
+  geom_line(aes(y = fit.c), linewidth = 1, alpha = 0.3) +  
+  geom_line(aes(y = fit.m), linewidth = 1, linetype = "dashed", alpha = 0.5, color = "black") +  
+  labs(title = "Sugar maple temporal sensitivity RMLE_mix",
+       x = "Spring temperature", y = "Leaf day") +
+  theme(legend.position = "none")  +
+  geom_text(x = max(data$springT), y = max(data$leaf), label = label, color = "black", hjust = 1, vjust = 1)
+
+```
+
+
+
+## Bayesian method
+
+For the Bayesian model, I used Stan’s default priors for all parameters except for the variances of the slope and intercept, for which I specified a Gamma prior with shape = 1 and rate = 50. I ran 10,000 iterations with 4 chains, using 5,000 iterations as warm-up, and did not thin the samples. The posterior mean and quantiles were used as the point estimates and 95% credible intervals for the slope, respectively.
+
+Almost all parameters had an Rhat of 1, with a few reaching 1.01, indicating good convergence. However, there was a warning about “3 divergent transitions after warmup,” which may suggest some issues with sampling efficiency.
+
+The model is specified as follows:
+
+$$
+\begin{aligned}
+y_{j,t^{(j)}} &= \beta_{0,j} + \beta_{1,j} \, x_{j,t^{(j)}} + \epsilon_{j,t^{(j)}} \\
+\beta_{0,j} &\sim \mathcal{N}(\mu_{\beta_0}, \tau_{\beta_0}^2) \\
+\beta_{1,j} &\sim \mathcal{N}(\mu_{\beta_1}, \tau_{\beta_1}^2) \\
+\epsilon_{j,t^{(j)}} &\sim \mathcal{N}(0, \sigma^2) \\
+\end{aligned}
+$$
+
+Prior distributions:
+
+$$
+\begin{aligned}
+\mu_{\beta_0} &\sim \text{Uniform}(-\infty, +\infty) \\
+\tau_{\beta_0}^2 &\sim \text{Inverse-Gamma}(1, 50) \\
+\mu_{\beta_1} &\sim \text{Uniform}(-\infty, +\infty) \\
+\tau_{\beta_1}^2 &\sim \text{Inverse-Gamma}(1, 50) \\
+\sigma^2 &\sim \text{Uniform}(0, +\infty)
+\end{aligned}
+$$
+
+
+```{r bay_mix_fit}
+#| message: false
+#| warning: false
+#| echo: false
+#| results: hide
+#| include: false
+set.seed(2)
+model_string <- "
+data {
+  int<lower=0> N;        
+  int<lower=0> J;      
+  int<lower=1, upper=J> group[N]; 
+  vector[N] y;            
+  vector[N] x;         
+}
+
+parameters {
+  real mu_a;              
+  real<lower=0> tau_a2;    
+  real mu_b;             
+  real<lower=0> tau_b2;    
+  real<lower=0> sigma2;   
+
+  vector[J] a;            
+  vector[J] b;            
+}
+
+model {
+  tau_a2 ~ inv_gamma(1, 50);
+  tau_b2 ~ inv_gamma(1, 50);
+
+  a ~ normal(mu_a, sqrt(tau_a2));
+  b ~ normal(mu_b, sqrt(tau_b2));
+  
+  for (i in 1:N) {
+    y[i] ~ normal(a[group[i]] + b[group[i]] * x[i], sqrt(sigma2));
+  }
+}
+
+"
+data_maple_tem = list(N = length(data$leaf), J = max(data$group), group = data$group, y = data$leaf, x = data$springT)
+stan_samples_tem <- stan(model_code = model_string, data = data_maple_tem, iter = 10000, chains = 4)
+```
+
+```{r bay_mix_extract}
+stan_summary <- summary(stan_samples_tem)
+# extract global para
+mu_a <- stan_summary$summary["mu_a", "mean"] 
+mu_b <- stan_summary$summary["mu_b", "mean"]  
+
+CI_mu_b <- quantile(extract(stan_samples_tem, "mu_b")[[1]], probs = c(0.025, 0.975))
+
+predict_function <- function(x, mu_a, mu_b) {
+  return(mu_a + mu_b * x)
+}
+
+data_with_predictions <- data %>% 
+  mutate(fit.m = predict_function(springT, mu_a, mu_b))
+
+# extract group specific para
+stan_samples <- extract(stan_samples_tem)
+
+intercepts <- apply(stan_samples$a, 2, mean)  
+slopes <- apply(stan_samples$b, 2, mean) 
+```
+
+```{r bay_mix_plot}
+# Function to get group-specific ranges
+get_group_ranges <- function(data, group_col, x_col) {
+  group_ranges <- data %>% 
+    group_by(!!sym(group_col)) %>% 
+    summarize(min_x = min(!!sym(x_col)), max_x = max(!!sym(x_col))) 
+  
+  return(group_ranges)
+}
+
+# Function to create predictions within group-specific ranges
+create_group_lines_with_ranges <- function(data, group_ranges, intercepts, slopes) {
+  group_lines <- data.frame()  
+  
+  # Loop through each group to create lines within their observed ranges
+  for (i in seq_along(intercepts)) {
+    group_id <- i  
+    intercept <- intercepts[i]  
+    slope <- slopes[i]  
+    
+    # Get the range for this group
+    group_range <- group_ranges %>% filter(!!sym(group_col) == group_id)
+    x_values <- seq(group_range$min_x, group_range$max_x, length.out = 100)  # Generate x values within the range
+    y_values <- intercept + slope * x_values  # Calculate y values for the line
+    
+    # Create a data frame for this group's line
+    group_data <- data.frame(
+      group = group_id,
+      springT = x_values,
+      leaf = y_values
+    )
+    
+    # Append to the group lines data frame
+    group_lines <- rbind(group_lines, group_data)
+  }
+  
+  return(group_lines) 
+}
+
+# Get group-specific ranges
+group_col <- "group"
+x_col <- "springT"
+group_ranges <- get_group_ranges(data, group_col, x_col)
+
+# Create group lines with the specific ranges
+group_lines <- create_group_lines_with_ranges(data, group_ranges, intercepts, slopes)
+
+ggplot(data, aes(x = springT, y = leaf, color = as.factor(group))) +
+  geom_point(shape = 16) +  # Plot data points
+  geom_line(data = group_lines, aes(x = springT, y = leaf, color = as.factor(group)), linewidth = 1, alpha = 0.3) +  # Group-specific lines within ranges
+  geom_line(data = data_with_predictions, aes(y = fit.m), linetype = "dashed", alpha = 0.5, color = "black") +  # Overall trend
+  labs(title = "Sugar maple temporal sensitivity Bayesian_mix",
+       x = "Spring temperature", y = "Leaf day")  +
+  theme(legend.position = "none") +
+  geom_text(x = max(data_with_predictions$springT), y = max(data_with_predictions$leaf), 
+            label = paste("Slope: ", round(mu_b, 2), 
+                          "\n95% CI: [", round(CI_mu_b[1], 2), ", ", round(CI_mu_b[2], 2), "]"),
+            color = "black", hjust = 1, vjust = 1)  
+
+```
+
+

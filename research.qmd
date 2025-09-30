@@ -4,5 +4,5 @@ format: html
 listing:
   type: default
   contents: research
-  categories: False
+  categories: True
 ---

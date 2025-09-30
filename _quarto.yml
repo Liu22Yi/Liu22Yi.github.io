@@ -10,6 +10,8 @@ website:
         text: Home
       - href: research.qmd
         text: Research
+      - href: blog.qmd
+        text: Blog
       - href: outreach.qmd
         text: Beyond research
 format:

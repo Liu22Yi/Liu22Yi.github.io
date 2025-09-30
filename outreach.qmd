@@ -47,12 +47,12 @@ Sports are not just a form of physical exercise—they also engage the mind. In 
 :::
 
 ::: {.column width="45%"}
-![Competing in the Michigan Judo State Games](outreach/judo.jpeg){height=500px}
+![Competing in the Michigan Judo State Games](outreach/judo.JPEG){height=500px}
 :::
 :::
 
 ### Music
-I am learning singing. Practicing singing becomes my daily life and a great way to relax. It has been a wonderful experience to study acoustics and how to control the beautiful "instrument" that you are born with.
+I am learning singing. Practicing singing becomes my daily life and a great way to relax. It has been a wonderful experience to study acoustics and how to control the beautiful "instrument" that we are born with.
 
 
 

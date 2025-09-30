@@ -2,8 +2,10 @@
 title: "Side projects"
 description: " "
 categories:
-  - Fish
-  - Past projects
+  - Ecosystem change
+  - Breaking points analysis
+  - Field phenology observation
+  - Past project
 about:
   template: solana
 format:
