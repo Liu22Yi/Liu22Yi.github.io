@@ -8,10 +8,15 @@ format:
     toc: true
 ---
 
+### Conservation work
+
+I am working as a Plant Management Technician this summer with the Eastern Nevada Landscape Coalition and the Bureau of Land Management in Elko, Nevada. We apply mechanical, chemical, and biological control methods to manage invasive plants.
+
+![Working in ENLC](outreach/ENLC.jpeg){height=300px}
+
 ### Natural observation
 
 I use [Pl@ntNet](https://plantnet.org/en/) for identifying plants. I like their feature of classsifying plant component because plants may look very different during flowering and fruit stages. I'm a top 1% observer (account: [yia](https://identify.plantnet.org/users/106222146/observations)).
-
 
 I use [iNaturalist](https://www.inaturalist.org/) for identifying other organisms, such as fungi, insects, and other animals. (account: [yi80](https://www.inaturalist.org/people/6413379)).
 
@@ -20,6 +25,10 @@ I use [Merlin Bird ID](https://merlin.allaboutbirds.org/) sometime for identifyi
 I also like an app called [Shroomify](https://www.foragers-friend.com/) for identifying mushrooms.
 
 ### Natural education and Science communication
+
+I lead a ecology field lab at University of Michigan.
+
+![Macroinvertebrate lab](outreach/eco_class.jpg){height=300px}
 
 I participated in Greencamp (绿色营) at the Tianbao Rock National Nature Reserve (福建天宝岩国家级自然保护区) in China, where we explored effective ways to connect people with nature, shared ecological knowledge with the public, and promoted awareness of the value of natural ecosystems.
 
